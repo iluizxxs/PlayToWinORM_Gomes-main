@@ -23,8 +23,20 @@ app.use(
 )
 app.use(express.json())
 
+app.get("/", (req, res) => {
+    res.render("home")
+})
+
+app.get("/usuarios", async (req, res) => {
+
+    const usuarios = await Usuario.findAll({ raw: true })
+
+    res.render("usuarios", { usuarios })
+
+})
+
 app.get("/usuarios/novo", (req, res) => {
-    res.sendFile(`${__dirname}/views/formUsuario.html`)
+    res.render("formUsuario")
 })
 
 app.post("/usuarios/novo", async (req, res) => {
